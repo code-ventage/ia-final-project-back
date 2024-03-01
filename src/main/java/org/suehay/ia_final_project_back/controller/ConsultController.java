@@ -14,6 +14,7 @@ import org.suehay.ia_final_project_back.service.ConsultService;
 @RequiredArgsConstructor
 @RequestMapping("/consult")
 public class ConsultController {
+
     private final ConsultService consultService;
 
     @GetMapping
