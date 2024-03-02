@@ -73,7 +73,7 @@ decenas(N)--> tens(N),[_],!,error().
 decenas(N)--> tens(N).
 
 
-% error(L,R):-fail.
+error(L,R):-fail.
 
 casos_especiales(0)--> ([cero]|[cien]|[doscientos]|[trescientos]|[cuatrocientos]|[quinientos]|
                         [seiscientos]|[setecientos]|[ochocientos]|[novecientos])
