@@ -2,7 +2,7 @@ package org.suehay.ia_final_project_back.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ public class ConsultController {
 
     private final ConsultService consultService;
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<ConsultResponse> makeConsult(@RequestBody ConsultRequest consultRequest){
         return ResponseEntity.ok(consultService.makeConsult(consultRequest));
     }

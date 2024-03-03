@@ -13,8 +13,8 @@ import java.net.URISyntaxException;
 @Repository
 public class ConsultRepositoryImpl implements ConsultRepository {
 
-    private @Value("${consult.query.suffix}") String querySuffix;
     private @Value("${consult.query.prefix}") String queryPrefix;
+    private @Value("${consult.query.suffix}") String querySuffix;
 
     public String makeConsultToProlog(String nums) {
         String command =
