@@ -1,3 +1,7 @@
+numero(N, Atom):-
+    atomic_list_concat(List, ' ', Atom),
+    numero(N, List, []), !.
+
 numero(N, OpenList, FinalHole):-
     (
         append(OpenList1, ['millones' | Hole], OpenList)
