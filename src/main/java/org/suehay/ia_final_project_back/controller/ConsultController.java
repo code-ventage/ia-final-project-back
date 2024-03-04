@@ -17,9 +17,14 @@ public class ConsultController {
 
     private final ConsultService consultService;
 
-    @PostMapping
-    public ResponseEntity<ConsultResponse> makeConsult(@RequestBody ConsultRequest consultRequest){
-        return ResponseEntity.ok(consultService.makeConsult(consultRequest));
+    @PostMapping("/digit")
+    public ResponseEntity<ConsultResponse> makeDigitConsult(@RequestBody ConsultRequest consultRequest){
+        return ResponseEntity.ok(consultService.makeDigitConsult(consultRequest));
+    }
+
+    @PostMapping("/letter")
+    public ResponseEntity<ConsultResponse> makeLetterConsult(@RequestBody ConsultRequest consultRequest){
+        return ResponseEntity.ok(consultService.makeDigitConsult(consultRequest));
     }
 
 }

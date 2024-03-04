@@ -1,3 +1,7 @@
+numero(N, Atom):-
+    atomic_list_concat(List, ' ', Atom),
+    numero(N, List, []), !.
+
 numero(N, OpenList, FinalHole):-
     (
         append(OpenList1, ['millones' | Hole], OpenList)
@@ -73,7 +77,7 @@ decenas(N)--> tens(N),[_],!,error().
 decenas(N)--> tens(N).
 
 
-% error(L,R):-fail.
+error(L,R):-fail.
 
 casos_especiales(0)--> ([cero]|[cien]|[doscientos]|[trescientos]|[cuatrocientos]|[quinientos]|
                         [seiscientos]|[setecientos]|[ochocientos]|[novecientos])

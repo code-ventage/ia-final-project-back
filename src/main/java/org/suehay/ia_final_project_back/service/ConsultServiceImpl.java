@@ -6,9 +6,7 @@ import org.suehay.ia_final_project_back.model.request.ConsultRequest;
 import org.suehay.ia_final_project_back.model.response.ConsultResponse;
 import org.suehay.ia_final_project_back.repository.ConsultRepository;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,18 +15,18 @@ public class ConsultServiceImpl implements ConsultService {
     private final ConsultRepository consultRepository;
 
     @Override
-    public ConsultResponse makeConsult(ConsultRequest consultRequest) {
-        return ConsultResponse.builder().hashResponse(makeConsultToProlog(Arrays.stream(consultRequest.getConsult().split(" ")).toList())).build();
+    public ConsultResponse makeDigitConsult(ConsultRequest consultRequest) {
+        return ConsultResponse.builder().hashResponse(makeDigitConsultToProlog(consultRequest.getConsult())).build();
     }
 
-    public HashMap<String, String> makeConsultToProlog(List<String> nums) {
+    public HashMap<String, String> makeDigitConsultToProlog(String nums) {
+        var solution = proccessResponse(consultRepository.makeDigitConsultToProlog(nums));
+        if (solution == null) return null;
 
-        var numbers = new StringBuilder();
+        return solution;
+    }
 
-        nums.forEach(value -> numbers.append(value).append(","));
-
-        var prologResponse = consultRepository.makeConsultToProlog(numbers.substring(0, numbers.length() - 1));
-
+    private static HashMap<String, String> proccessResponse(String prologResponse) {
         if (prologResponse.equals("error")) return null;
 
         var solution = new HashMap<String, String>();
@@ -37,11 +35,21 @@ public class ConsultServiceImpl implements ConsultService {
         var response = prologResponse.split("=");
 
         if (response.length > 1) {
-            var key = response[0];
-            var value = response[1];
-            solution.put(key, value);
+            solution.put("N", response[1]);
         }
+        return solution;
+    }
+
+    @Override
+    public ConsultResponse makeLetterConsult(ConsultRequest consultRequest) {
+        return ConsultResponse.builder().hashResponse(makeLetterConsultToProlog(consultRequest.getConsult())).build();
+    }
+
+    public HashMap<String, String> makeLetterConsultToProlog(String letters) {
+        var solution = proccessResponse(consultRepository.makeLetterConsultToProlog(letters));
+        if (solution == null) return null;
 
         return solution;
+
     }
 }

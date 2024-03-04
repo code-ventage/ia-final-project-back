@@ -13,20 +13,27 @@ import java.net.URISyntaxException;
 @Repository
 public class ConsultRepositoryImpl implements ConsultRepository {
 
-    private @Value("${consult.query.prefix}") String queryPrefix;
-    private @Value("${consult.query.suffix}") String querySuffix;
+    private @Value("${consult.query.prefix}") String digitQueryPrefix;
+    private @Value("${consult.query.suffix}") String digitQuerySuffix;
 
-    public String makeConsultToProlog(String nums) {
+    private @Value("${consult.query.lettersPrefix}") String letterQueryPrefix;
+    private @Value("${consult.query.lettersSuffix}") String letterQuerySuffix;
+    @Override
+    public String makeDigitConsultToProlog(String nums) {
         String command =
                 null;
         try {
-            command = queryPrefix
+            command = digitQueryPrefix
                     + nums
-                    + querySuffix + " \""
+                    + digitQuerySuffix + " \""
                     + FileLocator.getPath("numero.pl") + "\"";
         } catch (URISyntaxException | IOException e) {
         }
 
+        return getMakeGenericConsult(command);
+    }
+
+    private String getMakeGenericConsult(String command) {
         var processBuilder = new ProcessBuilder();
 
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
@@ -39,7 +46,7 @@ public class ConsultRepositoryImpl implements ConsultRepository {
             var process = processBuilder.start();
             var reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
-            StringBuilder response = new StringBuilder();
+            var response = new StringBuilder();
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
                 response.append(line);
@@ -50,5 +57,19 @@ public class ConsultRepositoryImpl implements ConsultRepository {
         }
 
         return "error";
+    }
+
+    @Override
+    public String makeLetterConsultToProlog(String letters) {
+        String command = null;
+        try {
+            command = letterQueryPrefix
+                    + letters
+                    + letterQuerySuffix + " \""
+                    + FileLocator.getPath("numerator.pl") + "\"";
+        } catch (URISyntaxException | IOException e) {
+        }
+
+        return getMakeGenericConsult(command);
     }
 }
