@@ -25,8 +25,25 @@ delete_zero_left([L | R], List):-
         append([L | R], [], List)
     ), !.
 
+to_array(N, List):-
+    (
+        N >= 10
+    ->
+        N1 is N mod 10,
+        N2 is N // 10,
+        to_array(N2, List1),
+        append(List1, [N1], List)
+    ;
+        append([N], [], List)
+    ).
 
-% initial predicate to call the GCL
+
+% initial predicate to call the GCL   
+numeral(N, Number):-
+    to_array(Number, List),
+    numeral(M, List, []),
+    atomic_list_concat(M, ' ', N).
+
 numeral(N, LRec, RRec):-
     numeral_millones(N, LRec, RRec).
 
