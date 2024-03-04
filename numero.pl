@@ -115,6 +115,15 @@ teen(18) --> [dieciocho].
 teen(19) --> [diecinueve].
 
 tens(20) --> [veinte].
+tens(21) --> [veintiuno].
+tens(22) --> [veintidos].
+tens(23) --> [veintitres].
+tens(24) --> [veinticuatro].
+tens(25) --> [veinticinco].
+tens(26) --> [veintiseis].
+tens(27) --> [veintisiete].
+tens(28) --> [veintiocho].
+tens(29) --> [veintinueve].
 tens(30) --> [treinta].
 tens(40) --> [cuarenta].
 tens(50) --> [cincuenta].
