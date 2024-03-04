@@ -51,7 +51,7 @@ public class ConsultRepositoryImpl implements ConsultRepository {
                 System.out.println(line);
                 response.append(line);
             }
-            return response.substring(0, response.length() - 1).replace(" ", "");
+            return response.substring(0, response.length() - 1).replace("'", "");
         } catch (Exception e) {
             e.printStackTrace();
         }

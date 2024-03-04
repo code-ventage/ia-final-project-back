@@ -24,7 +24,7 @@ public class ConsultController {
 
     @PostMapping("/letter")
     public ResponseEntity<ConsultResponse> makeLetterConsult(@RequestBody ConsultRequest consultRequest){
-        return ResponseEntity.ok(consultService.makeDigitConsult(consultRequest));
+        return ResponseEntity.ok(consultService.makeLetterConsult(consultRequest));
     }
 
 }

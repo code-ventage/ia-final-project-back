@@ -35,7 +35,7 @@ public class ConsultServiceImpl implements ConsultService {
         var response = prologResponse.split("=");
 
         if (response.length > 1) {
-            solution.put("N", response[1]);
+            solution.put("N", response[1].trim());
         }
         return solution;
     }
