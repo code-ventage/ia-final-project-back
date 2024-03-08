@@ -13,7 +13,7 @@ Main objective: create an app that the students can use to translate from number
 Open the terminal and go to the project folder. Then, run the following command:
 
 ```bash
-java -jar ia-final-project-0.0.1-SNAPSHOT.jar
+java -jar NumberTranslator-1.0.0.jar
 ```
 
 ## How to use
@@ -94,7 +94,7 @@ Making this project compatible with Windows and Unix systems.
 ## Requirements
 
 - Java 11 or higher
-- SWI-Pl installed in your machine
+- SWI-Pl installed on your machine
 - Maven
 
 ## Authors
