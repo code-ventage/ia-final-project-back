@@ -1,19 +1,28 @@
-import datetime as dt
-from repository import Repository
+import sys
+import os
+dir_father = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(dir_father)
+import json
+from repositories.repository import Repository
 class UserScoreRepository(Repository):
-    def store(username: str, score: int, time: int) -> None:
-        with open('./Storage/user-score.txt', 'a') as file:
-            file.write(f'{username} {score} {time} {dt.datetime.now()}\n')
-            
+    def store(username: str, score: str, data: str) -> None:
+        try:
+            with open('./Storage/scores.json', 'r') as file:
+                scores = json.load(file)
+        except FileNotFoundError as e:
+            scores = []
+        
+        scores.append({'username': username, 'score': score, 'data': data})
+        
+        with open('./Storage/scores.json', 'w') as file:
+            json.dump(scores, file, indent=4)
+    
     def index() -> dict:
-        response = list()
-        with open('./Storage/user-score.txt', 'r') as file:
-            for f in file.readlines():
-                s = f.replace('\n', '').split(' ')
-                response.append({'nombre': s[0], 'score': s[1], 'time': s[2], 'data': s[3] + ' ' + s[4]})
-                        
-        return response
+        with open('./Storage/scores.json', 'r') as file:
+            return json.load(file)
+                       
 
 if __name__ == '__main__':
-    UserScoreRepository.store('laos', 5, 5)
+    UserScoreRepository.store('laos', 5)
+    UserScoreRepository.store('kratos', 10)
     print(UserScoreRepository.index())
