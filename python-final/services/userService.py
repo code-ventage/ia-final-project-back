@@ -24,6 +24,7 @@ class UserService(Service):
     def index(username: str = None) -> list:  
         try:
             response = UserRepository.index()
+            
             if username is None:
                 Service.response['response']['data'] = response
             else:
