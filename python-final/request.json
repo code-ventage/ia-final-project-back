@@ -1,0 +1,8 @@
+{
+    "version": 0,
+    "service" : "userScoreService",
+    "method" : "index",
+    "data": {
+        "username": "laos"
+    }
+}

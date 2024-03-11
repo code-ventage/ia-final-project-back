@@ -1,17 +1,11 @@
 {
-    "status": 200,
-    "message": "",
+    "version": 0,
+    "response": {
+        "status": 200,
+        "message": "",
+        "data": null
+    },
     "data": [
-        {
-            "username": "kratos",
-            "score": 10,
-            "data": "2024-03-10 12:16:10.900270"
-        },
-        {
-            "username": "kratos",
-            "score": 10,
-            "data": "2024-03-10 12:47:41.603597"
-        },
         {
             "username": "laos",
             "score": 5,

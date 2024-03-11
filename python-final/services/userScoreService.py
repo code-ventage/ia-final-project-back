@@ -38,5 +38,6 @@ class UserScoreService(Service):
                 json.dump(Service.response, file, indent=4)            
         
 if __name__ == '__main__':
+    input()
     # UserScoreService.store('laos', 5)
     UserScoreService.index()

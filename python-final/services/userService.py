@@ -10,51 +10,51 @@ class UserService(Service):
     def store(username: str, password: str) -> None:
         try:
             UserRepository.store(username, password)
-            Service.response['message'] = 'Se ha registrado el usuario correctamente'
+            Service.response['response']['message'] = 'Se ha registrado el usuario correctamente'
         except DuplicateUser as de:
-            Service.response['status'] = 401
-            Service.response['message'] = str(de)
+            Service.response['response']['status'] = 401
+            Service.response['response']['message'] = str(de)
         except Exception as e:
-            Service.response['status'] = 500
-            Service.response['message'] = str(e)
+            Service.response['response']['status'] = 500
+            Service.response['response']['message'] = str(e)
         finally:
             with open('response.json', 'w') as file:
                 json.dump(Service.response, file, indent=4)
                 
-    def index(username: str = None) -> list:        
+    def index(username: str = None) -> list:  
         try:
             response = UserRepository.index()
             if username is None:
-                Service.response['data'] = response
+                Service.response['response']['data'] = response
             else:
-                Service.response['data'] = list(filter(lambda a: a['username'] == username, response))
+                Service.response['response']['data'] = list(filter(lambda a: a['username'] == username, response))
         except Exception as e:
-            Service.response['status'] = 500
-            Service.response['message'] = str(e)
+            Service.response['response']['status'] = 500
+            Service.response['response']['message'] = str(e)
         finally:
             with open('response.json', 'w') as file:
                 json.dump(Service.response, file, indent=4)
                 
-    def login(username: str, password: str) -> list:        
+    def login(username: str, password: str) -> list:  
         try:
             response = UserRepository.index()
             response = list(filter(lambda a: a['username'] == username and a['password'] == password, response))
             
             if len(response) > 0:
-                Service.response['message'] = 'Se ha autentificado correctamente'
-                Service.response['data'] = response
+                Service.response['response']['message'] = 'Se ha autentificado correctamente'
+                Service.response['response']['data'] = response
             else:
-                Service.response['status'] = 422
-                Service.response['message'] = 'Credenciales incorrectas'
+                Service.response['response']['status'] = 422
+                Service.response['response']['message'] = 'Credenciales incorrectas'
         except Exception as e:
-            Service.response['status'] = 500
-            Service.response['message'] = str(e)
+            Service.response['response']['status'] = 500
+            Service.response['response']['message'] = str(e)
         finally:
             with open('response.json', 'w') as file:
                 json.dump(Service.response, file, indent=4)
             
         
 if __name__ == '__main__':
-    # UserService.store('laos', '0205')
-    # UserService.index()
-    UserService.login('laos', '020')
+    # UserService.store('laos', '5')
+    UserService.index()
+    UserService.index()
