@@ -1,7 +1,9 @@
+import json
+
+from services.service import Service
 from services.userScoreService import UserScoreService
 from services.userService import UserService
-from services.service import Service
-import json
+
 try:
     with open('request.json', 'r') as file:
         request = json.load(file)
@@ -28,6 +30,6 @@ try:
 except Exception as e:
     Service.response['response']['status'] = 500
     Service.response['response']['message'] = str(e)
+    Service.response['version'] = '-1'
     with open('response.json', 'w') as f:
         json.dump(Service.response, file, indent= 4)
-  
