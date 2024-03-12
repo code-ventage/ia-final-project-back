@@ -1,0 +1,49 @@
+{
+  "userService": [
+    {
+      "version": 0,
+      "service": "userService",
+      "method": "store",
+      "data": {
+        "username": "Peque",
+        "pasword": "asfaaga"
+      }
+    },
+    {
+      "version": 0,
+      "service": "userService",
+      "method": "index",
+      "data": {
+        "username / null": "Peque"
+      }
+    },
+    {
+      "version": 0,
+      "service": "userService",
+      "method": "login",
+      "data": {
+        "username": "Peque",
+        "password": "asfagsag"
+      }
+    }
+  ],
+  "userScoreService": [
+    {
+      "version": 0,
+      "service": "userService",
+      "method": "store",
+      "data": {
+        "username": "Peque",
+        "score": 9719419
+      }
+    },
+    {
+      "version": 0,
+      "service": "userService",
+      "method": "index",
+      "data": {
+        "username / null": "Peque"
+      }
+    }
+  ]
+}
