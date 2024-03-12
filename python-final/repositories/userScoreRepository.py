@@ -7,18 +7,18 @@ from repositories.repository import Repository
 class UserScoreRepository(Repository):
     def store(username: str, score: str, data: str) -> None:
         try:
-            with open('./Storage/scores.json', 'r') as file:
+            with open('python-final/Storage/scores.json', 'r') as file:
                 scores = json.load(file)
         except FileNotFoundError as e:
             scores = []
         
         scores.append({'username': username, 'score': score, 'data': data})
         
-        with open('./Storage/scores.json', 'w') as file:
+        with open('python-final/storage/scores.json', 'w') as file:
             json.dump(scores, file, indent=4)
     
     def index() -> dict:
-        with open('./Storage/scores.json', 'r') as file:
+        with open('python-final/storage/scores.json', 'r') as file:
             return json.load(file)
                        
 

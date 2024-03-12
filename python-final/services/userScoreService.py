@@ -14,12 +14,12 @@ class UserScoreService(Service):
             data = str(dt.now())
             UserScoreRepository.store(username, score, data)
             Service.response['message'] = 'Se ha guardado correctamente la informacion'
-            Service.response['data'] = {'username': username, 'score': score, 'data': data}
+            Service.response['response']['data'] = {'username': username, 'score': score, 'data': data}
         except Exception as e:
-            Service.response['status'] = 500
-            Service.response['message'] = str(e)
+            Service.response['response']['status'] = 500
+            Service.response['response']['message'] = str(e)
         finally:
-            with open('response.json', 'w') as file:
+            with open('python-final/response.json', 'w') as file:
                 json.dump(Service.response, file, indent=4)
                 
     def index(username: str = None) -> list:        
@@ -27,14 +27,14 @@ class UserScoreService(Service):
             response = UserScoreRepository.index()
             response.sort(key=lambda x: (-int(x['score']), dt.strptime(x['data'], '%Y-%m-%d %H:%M:%S.%f')))
             if username is None:
-                Service.response['data'] = response
+                Service.response['response']['data'] = response
             else:
-                Service.response['data'] = list(filter(lambda a: a['username'] == username, response))
+                Service.response['response']['data'] = list(filter(lambda a: a['username'] == username, response))
         except Exception as e:
-            Service.response['status'] = 500
-            Service.response['message'] = str(e)
+            Service.response['response']['status'] = 500
+            Service.response['response']['message'] = str(e)
         finally:
-            with open('response.json', 'w') as file:
+            with open('python-final/response.json', 'w') as file:
                 json.dump(Service.response, file, indent=4)            
         
 if __name__ == '__main__':
