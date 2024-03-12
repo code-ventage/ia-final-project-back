@@ -19,7 +19,7 @@ class UserScoreService(Service):
             Service.response['response']['status'] = 500
             Service.response['response']['message'] = str(e)
         finally:
-            with open('response.json', 'w') as file:
+            with open('python-final/response.json', 'w') as file:
                 json.dump(Service.response, file, indent=4)
                 
     def index(username: str = None) -> list:        
@@ -34,7 +34,7 @@ class UserScoreService(Service):
             Service.response['response']['status'] = 500
             Service.response['response']['message'] = str(e)
         finally:
-            with open('response.json', 'w') as file:
+            with open('python-final/response.json', 'w') as file:
                 json.dump(Service.response, file, indent=4)            
         
 if __name__ == '__main__':

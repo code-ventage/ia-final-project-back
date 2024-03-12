@@ -9,7 +9,7 @@ import json
 class UserRepository(Repository):
     def store(username: str, password: str) -> None:
         try:
-            with open('./Storage/users.json', 'r') as file:
+            with open('python-final/storage/users.json', 'r') as file:
                 users = json.load(file)
                 
                 user =  list(filter(lambda a: a['username'] == username, users))
@@ -20,11 +20,11 @@ class UserRepository(Repository):
     
         users.append({'username': username, 'password': password})
         
-        with open('./Storage/users.json', 'w') as file:
+        with open('python-final/storage/users.json', 'w') as file:
             json.dump(users, file, indent=4)
     
     def index() -> tuple:
-        with open('./Storage/users.json', 'r') as file:
+        with open('python-final/Storage/users.json', 'r') as file:
             return json.load(file)
 if __name__ == '__main__':
     # UserRepository.store('laos', '0205')
