@@ -1,8 +1,10 @@
 package org.suehay.ia_final_project_back.repository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.suehay.ia_final_project_back.util.FileLocator;
+import org.suehay.ia_final_project_back.util.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +13,10 @@ import java.net.URISyntaxException;
 
 
 @Repository
+@RequiredArgsConstructor
 public class ConsultRepositoryImpl implements ConsultRepository {
+
+    final Utils utils;
 
     private @Value("${consult.query.prefix}") String digitQueryPrefix;
     private @Value("${consult.query.suffix}") String digitQuerySuffix;
@@ -36,11 +41,7 @@ public class ConsultRepositoryImpl implements ConsultRepository {
     private String getMakeGenericConsult(String command) {
         var processBuilder = new ProcessBuilder();
 
-        if (System.getProperty("os.name").toLowerCase().contains("win")) {
-            processBuilder.command("cmd.exe", "/c", command);
-        } else {
-            processBuilder.command("bash", "-c", command);
-        }
+        processBuilder = utils.getProcessBuilder(processBuilder, command);
 
         try {
             var process = processBuilder.start();

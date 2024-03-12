@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.suehay.ia_final_project_back.model.pythonRequest.GenericPythonRequest;
-import org.suehay.ia_final_project_back.model.request.UserRequest;
+import org.suehay.ia_final_project_back.model.request.UserScoreRequest;
 import org.suehay.ia_final_project_back.util.FileLocator;
 import org.suehay.ia_final_project_back.util.Utils;
 
@@ -15,12 +15,12 @@ import java.util.Objects;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepositoryImpl implements UserRepository {
+public class UserScoreRepositoryImpl implements UserScoreRepository {
     final Utils utils;
     @Override
-    public HashMap<String, String> signUp(UserRequest userRequest) {
+    public HashMap<String, String> signUp(UserScoreRequest userScoreRequest) {
         var response = new HashMap<String, String>();
-        writeRequest(getGenericRequest(userRequest, "store"));
+        writeRequest(getGenericRequest(userScoreRequest, "store"));
         makePythonConsult();
 
         // todo leer la resinga respuesta
@@ -38,23 +38,23 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public HashMap<String, String> login(UserRequest userRequest) {
+    public HashMap<String, String> login(UserScoreRequest userScoreRequest) {
         var response = new HashMap<String, String>();
-        writeRequest(getGenericRequest(userRequest, "login"));
+        writeRequest(getGenericRequest(userScoreRequest, "login"));
         makePythonConsult();
 
         // todo ver respuesta
         return null;
     }
 
-    private static GenericPythonRequest getGenericRequest(UserRequest userRequest, String method) {
+    private static GenericPythonRequest getGenericRequest(UserScoreRequest userScoreRequest, String method) {
         return new GenericPythonRequest(
                 0,
                 method,
-                "userService",
-                !Objects.isNull(userRequest) ? new HashMap<>() {{
-                    put("username", userRequest.getUserName());
-                    put("password", userRequest.getPassword().hashCode() + "");
+                "userScoreService",
+                !Objects.isNull(userScoreRequest) ? new HashMap<>() {{
+                    put("username", userScoreRequest.getUserName());
+                    put("score", userScoreRequest.getScore());
                 }} : null
         );
     }
@@ -97,5 +97,4 @@ public class UserRepositoryImpl implements UserRepository {
             e.printStackTrace();
         }
     }
-
 }
