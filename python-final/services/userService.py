@@ -13,7 +13,7 @@ class UserService(Service):
             UserRepository.store(username, password)
             Service.response['response']['message'] = 'Se ha registrado el usuario correctamente'
         except DuplicateUser as de:
-            Service.response['response']['status'] = 401
+            Service.response['response']['status'] = 422
             Service.response['response']['message'] = str(de)
         except Exception as e:
             Service.response['response']['status'] = 500
@@ -46,7 +46,7 @@ class UserService(Service):
                 Service.response['response']['message'] = 'Se ha autentificado correctamente'
                 Service.response['response']['data'] = response
             else:
-                Service.response['response']['status'] = 422
+                Service.response['response']['status'] = 401
                 Service.response['response']['message'] = 'Credenciales incorrectas'
         except Exception as e:
             Service.response['response']['status'] = 500
