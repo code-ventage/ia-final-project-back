@@ -5,7 +5,7 @@ import org.suehay.ia_final_project_back.model.pythonReponse.GenericScoreResponse
 import org.suehay.ia_final_project_back.model.request.UserRequest;
 import org.suehay.ia_final_project_back.model.request.UserScoreRequest;
 
-interface UserService {
+public interface UserService {
     GenericResponse signUp(UserRequest userRequest);
     GenericResponse login(UserRequest userRequest);
 
