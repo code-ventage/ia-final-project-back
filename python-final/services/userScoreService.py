@@ -14,7 +14,7 @@ class UserScoreService(Service):
             data = str(dt.now())
             UserScoreRepository.store(username, score, data)
             Service.response['message'] = 'Se ha guardado correctamente la informacion'
-            Service.response['response']['data'] = {'username': username, 'score': score, 'data': data}
+            Service.response['response']['data'] = [{'username': username, 'score': score, 'data': data}]
         except Exception as e:
             Service.response['response']['status'] = 500
             Service.response['response']['message'] = str(e)
