@@ -11,7 +11,7 @@ import java.util.HashMap;
 @AllArgsConstructor
 public class GenericPythonRequest {
     @JsonProperty(value = "version")
-    final String version;
+    final Integer version;
     @JsonProperty(value = "method")
     final String method;
     @JsonProperty(value = "service")

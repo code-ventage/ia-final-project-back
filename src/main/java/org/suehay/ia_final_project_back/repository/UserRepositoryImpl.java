@@ -11,22 +11,22 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 
 @Repository
-public class UserServiceRepositoryImpl implements UserRepository {
+public class UserRepositoryImpl implements UserRepository {
     @Override
     public HashMap<String, String> signUp(UserRequest userRequest) {
         var response = new HashMap<String, String>();
 
         var genericRequest = new GenericPythonRequest(
-                "0",
-                "userService",
+                0,
                 "store",
+                "userService",
                 new HashMap<>(){{
                     put("username", userRequest.getUserName());
-                    put("password", userRequest.getPassword());
+                    put("password", userRequest.getPassword().hashCode() + "");
                 }}
         );
 
-        try(var bufferedWriter = new BufferedWriter(new FileWriter(FileLocator.getPath("python-final"+ File.separator + "request.json")))){
+        try(var bufferedWriter = new BufferedWriter(new FileWriter(FileLocator.getPath("request.json")))){
             bufferedWriter.write(new ObjectMapper().writeValueAsString(genericRequest));
         } catch (IOException e){
             e.printStackTrace();
@@ -35,16 +35,58 @@ public class UserServiceRepositoryImpl implements UserRepository {
         }
         makePythonConsult();
 
+        // todo leer la resinga respuesta
         return null;
     }
 
     @Override
     public HashMap<String, String> index(UserRequest userRequest) {
+        var response = new HashMap<String, String>();
+
+        var genericRequest = new GenericPythonRequest(
+                0,
+                "index",
+                "userService",
+                null
+        );
+
+        try(var bufferedWriter = new BufferedWriter(new FileWriter(FileLocator.getPath("request.json")))){
+            bufferedWriter.write(new ObjectMapper().writeValueAsString(genericRequest));
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        makePythonConsult();
+        // todo ver respuesta
+
         return null;
     }
 
     @Override
     public HashMap<String, String> login(UserRequest userRequest) {
+        var response = new HashMap<String, String>();
+
+        var genericRequest = new GenericPythonRequest(
+                0,
+                "login",
+                "userService",
+                new HashMap<>(){{
+                    put("username", userRequest.getUserName());
+                    put("password", userRequest.getPassword().hashCode() + "");
+                }}
+        );
+
+        try(var bufferedWriter = new BufferedWriter(new FileWriter(FileLocator.getPath("request.json")))){
+            bufferedWriter.write(new ObjectMapper().writeValueAsString(genericRequest));
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        makePythonConsult();
+
+        // todo ver respuesta
         return null;
     }
 

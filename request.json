@@ -1,6 +1,1 @@
-{
-    "version": 1,
-    "service" : "userScoreService",
-    "method" : "index",
-    "data": null
-}
+{"version":0,"method":"login","service":"userService","data":{"password":"1509442","username":"suehay"}}
