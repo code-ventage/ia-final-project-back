@@ -78,10 +78,10 @@ public class UserScoreRepositoryImpl implements UserScoreRepository {
         } catch (URISyntaxException | IOException e) {
         }
 
-        getMakeGenericConsult(command);
+        makeGenericConsult(command);
     }
 
-    private void getMakeGenericConsult(String command) {
+    private void makeGenericConsult(String command) {
         var processBuilder = new ProcessBuilder();
 
         processBuilder = utils.getProcessBuilder(processBuilder, command);
