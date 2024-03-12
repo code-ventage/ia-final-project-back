@@ -3,6 +3,7 @@ package org.suehay.ia_final_project_back.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.suehay.ia_final_project_back.model.pythonReponse.GenericResponse;
 import org.suehay.ia_final_project_back.model.pythonRequest.GenericPythonRequest;
 import org.suehay.ia_final_project_back.model.request.UserRequest;
 import org.suehay.ia_final_project_back.util.FileLocator;
@@ -18,33 +19,45 @@ import java.util.Objects;
 public class UserRepositoryImpl implements UserRepository {
     final Utils utils;
     @Override
-    public HashMap<String, String> signUp(UserRequest userRequest) {
-        var response = new HashMap<String, String>();
+    public GenericResponse signUp(UserRequest userRequest) {
         writeRequest(getGenericRequest(userRequest, "store"));
         makePythonConsult();
 
-        // todo leer la resinga respuesta
-        return null;
+        GenericResponse response;
+        try {
+            response = new ObjectMapper().readValue(new File(FileLocator.getPath("response.json")), GenericResponse.class);
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        return response;
     }
 
     @Override
-    public HashMap<String, String> index() {
-        var response = new HashMap<String, String>();
+    public GenericResponse getAll() {
         writeRequest(getGenericRequest(null, "index"));
         makePythonConsult();
 
-        // todo ver respuesta
-        return null;
+        GenericResponse response;
+        try {
+            response = new ObjectMapper().readValue(new File(FileLocator.getPath("response.json")), GenericResponse.class);
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        return response;
     }
 
     @Override
-    public HashMap<String, String> login(UserRequest userRequest) {
-        var response = new HashMap<String, String>();
+    public GenericResponse login(UserRequest userRequest) {
         writeRequest(getGenericRequest(userRequest, "login"));
         makePythonConsult();
 
-        // todo ver respuesta
-        return null;
+        GenericResponse response;
+        try {
+            response = new ObjectMapper().readValue(new File(FileLocator.getPath("response.json")), GenericResponse.class);
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        return response;
     }
 
     private static GenericPythonRequest getGenericRequest(UserRequest userRequest, String method) {

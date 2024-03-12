@@ -3,6 +3,7 @@ package org.suehay.ia_final_project_back.repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.suehay.ia_final_project_back.model.pythonReponse.GenericScoreResponse;
 import org.suehay.ia_final_project_back.model.pythonRequest.GenericPythonRequest;
 import org.suehay.ia_final_project_back.model.request.UserScoreRequest;
 import org.suehay.ia_final_project_back.util.FileLocator;
@@ -18,23 +19,30 @@ import java.util.Objects;
 public class UserScoreRepositoryImpl implements UserScoreRepository {
     final Utils utils;
     @Override
-    public HashMap<String, String> save(UserScoreRequest userScoreRequest) {
-        var response = new HashMap<String, String>();
+    public GenericScoreResponse save(UserScoreRequest userScoreRequest) {
         writeRequest(getGenericRequest(userScoreRequest, "store"));
         makePythonConsult();
 
-        // todo leer la resinga respuesta
-        return null;
+        GenericScoreResponse response;
+        try {
+            response = new ObjectMapper().readValue(new File(FileLocator.getPath("response.json")), GenericScoreResponse.class);
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        return response;
     }
 
     @Override
-    public HashMap<String, String> index() {
-        var response = new HashMap<String, String>();
+    public GenericScoreResponse index() {
         writeRequest(getGenericRequest(null, "index"));
         makePythonConsult();
-
-        // todo ver respuesta
-        return null;
+        GenericScoreResponse response;
+        try {
+            response = new ObjectMapper().readValue(new File(FileLocator.getPath("response.json")), GenericScoreResponse.class);
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        return response;
     }
 
     private static GenericPythonRequest getGenericRequest(UserScoreRequest userScoreRequest, String method) {
