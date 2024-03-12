@@ -18,7 +18,7 @@ import java.util.Objects;
 public class UserScoreRepositoryImpl implements UserScoreRepository {
     final Utils utils;
     @Override
-    public HashMap<String, String> signUp(UserScoreRequest userScoreRequest) {
+    public HashMap<String, String> save(UserScoreRequest userScoreRequest) {
         var response = new HashMap<String, String>();
         writeRequest(getGenericRequest(userScoreRequest, "store"));
         makePythonConsult();
@@ -31,16 +31,6 @@ public class UserScoreRepositoryImpl implements UserScoreRepository {
     public HashMap<String, String> index() {
         var response = new HashMap<String, String>();
         writeRequest(getGenericRequest(null, "index"));
-        makePythonConsult();
-
-        // todo ver respuesta
-        return null;
-    }
-
-    @Override
-    public HashMap<String, String> login(UserScoreRequest userScoreRequest) {
-        var response = new HashMap<String, String>();
-        writeRequest(getGenericRequest(userScoreRequest, "login"));
         makePythonConsult();
 
         // todo ver respuesta
