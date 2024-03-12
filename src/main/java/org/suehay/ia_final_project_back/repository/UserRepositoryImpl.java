@@ -9,30 +9,14 @@ import org.suehay.ia_final_project_back.util.FileLocator;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.Objects;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
     @Override
     public HashMap<String, String> signUp(UserRequest userRequest) {
         var response = new HashMap<String, String>();
-
-        var genericRequest = new GenericPythonRequest(
-                0,
-                "store",
-                "userService",
-                new HashMap<>(){{
-                    put("username", userRequest.getUserName());
-                    put("password", userRequest.getPassword().hashCode() + "");
-                }}
-        );
-
-        try(var bufferedWriter = new BufferedWriter(new FileWriter(FileLocator.getPath("request.json")))){
-            bufferedWriter.write(new ObjectMapper().writeValueAsString(genericRequest));
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        writeRequest(getGenericRequest(userRequest, "store"));
         makePythonConsult();
 
         // todo leer la resinga respuesta
@@ -40,23 +24,9 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public HashMap<String, String> index(UserRequest userRequest) {
+    public HashMap<String, String> index() {
         var response = new HashMap<String, String>();
-
-        var genericRequest = new GenericPythonRequest(
-                0,
-                "index",
-                "userService",
-                null
-        );
-
-        try(var bufferedWriter = new BufferedWriter(new FileWriter(FileLocator.getPath("request.json")))){
-            bufferedWriter.write(new ObjectMapper().writeValueAsString(genericRequest));
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        writeRequest(getGenericRequest(null, "index"));
         makePythonConsult();
         // todo ver respuesta
 
@@ -66,34 +36,41 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public HashMap<String, String> login(UserRequest userRequest) {
         var response = new HashMap<String, String>();
-
-        var genericRequest = new GenericPythonRequest(
-                0,
-                "login",
-                "userService",
-                new HashMap<>(){{
-                    put("username", userRequest.getUserName());
-                    put("password", userRequest.getPassword().hashCode() + "");
-                }}
-        );
-
-        try(var bufferedWriter = new BufferedWriter(new FileWriter(FileLocator.getPath("request.json")))){
-            bufferedWriter.write(new ObjectMapper().writeValueAsString(genericRequest));
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        writeRequest(getGenericRequest(userRequest, "login"));
         makePythonConsult();
 
         // todo ver respuesta
         return null;
     }
 
+    private static GenericPythonRequest getGenericRequest(UserRequest userRequest, String method) {
+        return new GenericPythonRequest(
+                0,
+                method,
+                "userService",
+                !Objects.isNull(userRequest) ? new HashMap<>() {{
+                    put("username", userRequest.getUserName());
+                    put("password", userRequest.getPassword().hashCode() + "");
+                }} : null
+        );
+    }
+
+
+
+    private static void writeRequest(GenericPythonRequest genericRequest) {
+        try (var bufferedWriter = new BufferedWriter(new FileWriter(FileLocator.getPath("request.json")))) {
+            bufferedWriter.write(new ObjectMapper().writeValueAsString(genericRequest));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String makePythonConsult() {
         String command = null;
         try {
-            command = "python3 " + "\"" + FileLocator.getPath("python-final"+ File.separator + "app.py") + "\"";
+            command = "python3 " + "\"" + FileLocator.getPath("python-final" + File.separator + "app.py") + "\"";
         } catch (URISyntaxException | IOException e) {
         }
 
@@ -122,4 +99,5 @@ public class UserRepositoryImpl implements UserRepository {
 
         return "pepino";
     }
+
 }
