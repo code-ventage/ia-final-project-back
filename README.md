@@ -1,5 +1,30 @@
 # IA Final Project Backend (Spring boot - Python - Prolog)
 
+## Index of contents
+
+<!-- TOC -->
+* [IA Final Project Backend (Spring boot - Python - Prolog)](#ia-final-project-backend-spring-boot---python---prolog)
+  * [Index of contents](#index-of-contents)
+  * [Description](#description)
+    * [Prolog:](#prolog)
+    * [Python:](#python)
+  * [How to run](#how-to-run)
+  * [How to use](#how-to-use)
+    * [For translations](#for-translations)
+    * [For users](#for-users)
+    * [For scores](#for-scores)
+  * [How to test](#how-to-test)
+  * [How the java-prolog connection works](#how-the-java-prolog-connection-works)
+    * [Command examples:](#command-examples)
+    * [Explanation:](#explanation)
+  * [How the java-python connection works](#how-the-java-python-connection-works)
+    * [Command example:](#command-example)
+    * [Explanation:](#explanation-1)
+  * [How the project is structured](#how-the-project-is-structured)
+  * [Requirements](#requirements)
+  * [Authors](#authors)
+<!-- TOC -->
+
 ## Description
 
 This project consists of an application that connects a backend created in Spring Boot with a Prolog and a Python program.
@@ -141,6 +166,19 @@ private String getMakeGenericConsult(String command) {
 }
 ```
 
+### Command examples:
+
+- For translations from digits to letters:
+```zsh
+echo "numero(N, 1002)." | swipl -q -f <route-to-numero.pl>/numero.pl
+```
+
+- For translations from letters to digits:
+```zsh
+echo "numeral(L, 'mil dos')." | swipl -q -f <route-to-numeral.pl>/numeral.pl
+```
+### Explanation:
+
 As you can see, the project runs the command in the system terminal and then reads the output of the command to return the result.
 
 The selection of the terminal to run the command is made by the `System.getProperty("os.name").toLowerCase().contains("win")` condition.
@@ -166,6 +204,12 @@ Here is an example of the signUp method:
         return response;
     }
 ```
+### Command example:
+
+```zsh
+python3 <route-to-app.py>/app.py
+```
+### Explanation:
 
 The `writeRequest` method writes the request to a file that the Python program will read.
 
@@ -203,6 +247,24 @@ The project is divided into two modules:
       - `services` - contains the services
       - `app.py` - is the main file
       - `response.json` - contains the response of the request
+
+## Diagrams
+
+### Spring Boot - class diagram
+
+![SpringBack - class diagram](assets/spring-class-diagram.png)
+
+### Python - exception class diagram
+
+![Python - exceptions class diagram](assets/python-exceptions.png)
+
+### Python - repositories class diagram
+
+![Python - repositories class diagram](assets/python-repositories.png)
+
+### Python - services class diagram
+
+![Python - services class diagram](assets/python-services.png)
 
 ## Requirements
 
