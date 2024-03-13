@@ -2,12 +2,14 @@
     "version": 0,
     "response": {
         "status": 200,
-        "message": "Se ha autentificado correctamente",
+        "message": "",
         "data": [
             {
                 "username": "pepe",
-                "password": "1592771618"
+                "score": "123123",
+                "data": "2024-03-12 21:57:47.763618"
             }
         ]
-    }
+    },
+    "message": "Se ha guardado correctamente la informacion"
 }

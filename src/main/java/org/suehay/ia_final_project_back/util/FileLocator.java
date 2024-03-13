@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class FileLocator {
-    public FileLocator() {
-    }
 
     public static String getPath(String filename) throws URISyntaxException, IOException {
         String path_separator = System.getProperty("file.separator");
