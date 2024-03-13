@@ -1,6 +1,6 @@
 # IA Final Project Backend (Spring boot)
 
-## Descripion
+## Description
 
 ### A project to connect Java with SWI-Pl by command line.
 
