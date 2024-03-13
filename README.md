@@ -21,6 +21,11 @@
     * [Command example:](#command-example)
     * [Explanation:](#explanation-1)
   * [How the project is structured](#how-the-project-is-structured)
+  * [Diagrams](#diagrams)
+    * [Spring Boot - class diagram](#spring-boot---class-diagram)
+    * [Python - exception class diagram](#python---exception-class-diagram)
+    * [Python - repositories class diagram](#python---repositories-class-diagram)
+    * [Python - services class diagram](#python---services-class-diagram)
   * [Requirements](#requirements)
   * [Authors](#authors)
 <!-- TOC -->
