@@ -36,10 +36,28 @@ millones(N, OpenList, Hole, FinalHole):-
     N is N1 * 1000000.
 
 numero_millares(N, OpenList, FinalHole):-
-    (append(OpenList1, [mil | Hole], OpenList)
-    -> millares(N, OpenList1, Hole, FinalHole)
+    (
+        append(OpenList1, [mil | Hole], OpenList)
+    ->  
+        (
+            centenas_millares_especiales(Y, X, []),
+            append(OpenList2, X, OpenList1)
+        ->
+            append(OpenList2, Y, OpenList3),
+            millares(N, OpenList3, Hole, FinalHole)
+        ;   
+            (   
+                centenas_millares_especiales(Z, _, []),
+                append(_, Z, OpenList1)
+            ->
+                false
+            ;
+                millares(N, OpenList1, Hole, FinalHole)
+            )
+        )
     ;
-    numero_centenas(N, OpenList, FinalHole)).
+        numero_centenas(N, OpenList, FinalHole)
+    ).
     
 millares(N, OpenList, Hole, FinalHole):-
     numero_centenas(N1, OpenList, FinalHole),
@@ -113,8 +131,17 @@ teen(16) --> [dieciseis].
 teen(17) --> [diecisiete].
 teen(18) --> [dieciocho].
 teen(19) --> [diecinueve].
+teen(20) --> [veinte].
+teen(21) --> [veintiuno].
+teen(22) --> [veintidos].
+teen(23) --> [veintitres].
+teen(24) --> [veinticuatro].
+teen(25) --> [veinticinco].
+teen(26) --> [veintiseis].
+teen(27) --> [veintisiete].
+teen(28) --> [veintiocho].
+teen(29) --> [veintinueve].
 
-tens(20) --> [veinte].
 tens(30) --> [treinta].
 tens(40) --> [cuarenta].
 tens(50) --> [cincuenta].
@@ -133,3 +160,7 @@ cent(6) --> [sieiscientos].
 cent(7) --> [setecientos].
 cent(8) --> [ochocientos].
 cent(9) --> [novecientos].
+
+centenas_millares_especiales([uno]) --> [un].
+centenas_millares_especiales([y, uno]) --> [y, un].
+centenas_millares_especiales([veintiuno]) --> [veintiun].
