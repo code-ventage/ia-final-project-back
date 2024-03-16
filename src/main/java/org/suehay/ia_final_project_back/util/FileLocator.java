@@ -3,13 +3,12 @@ package org.suehay.ia_final_project_back.util;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.FileSystems;
 
 public class FileLocator {
-    public FileLocator() {
-    }
 
     public static String getPath(String filename) throws URISyntaxException, IOException {
-        String path_separator = System.getProperty("file.separator");
+        String path_separator = FileSystems.getDefault().getSeparator();
         File auxiliar = new File(FileLocator.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
         String directoryPath;
         if (auxiliar.isDirectory()) {
@@ -34,11 +33,8 @@ public class FileLocator {
     private static String getRecursivePath(String containerFinalPath, String directoryName) {
         File[] directories = (new File(containerFinalPath)).listFiles(File::isDirectory);
         if (directories != null) {
-            File[] var3 = directories;
-            int var4 = directories.length;
 
-            for(int var5 = 0; var5 < var4; ++var5) {
-                File directory = var3[var5];
+            for (File directory : directories) {
                 if (directory.getName().equals(directoryName)) {
                     return directory.getAbsolutePath();
                 }

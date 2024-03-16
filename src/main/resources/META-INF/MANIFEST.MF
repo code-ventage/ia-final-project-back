@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: org.suehay.ia_final_project_back.IaFinalProjectBackApplicati
+ on
+

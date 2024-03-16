@@ -3,11 +3,13 @@
     "response": {
         "status": 200,
         "message": "",
-        "data": {
-            "username": "pepe",
-            "score": "123123",
-            "data": "2024-03-12 11:55:56.236059"
-        }
+        "data": [
+            {
+                "username": "pepe",
+                "score": "123123",
+                "data": "2024-03-12 21:57:47.763618"
+            }
+        ]
     },
     "message": "Se ha guardado correctamente la informacion"
 }
