@@ -111,8 +111,17 @@ numeral_millares(N, LRec1, RRec):-
             ;   
                 reverse(R, RR),
                 numeral_centenas(NM, RR, []),
-                append(NM, [mil], FNM),
-                append(FNM, NC, N)
+                (
+                    centenas_millares_especiales(X, Y, []),
+                    append(Z, Y, NM)
+                ->
+                    append(Z, X, NMR),
+                    append(NMR, [mil], FNM),
+                    append(FNM, NC, N)
+                ;
+                    append(NM, [mil], FNM),
+                    append(FNM, NC, N)
+                )
             )
         ;
             R \= [0],
@@ -123,8 +132,16 @@ numeral_millares(N, LRec1, RRec):-
             ;   
                 reverse(R, RR),
                 numeral_centenas(NM, RR, []),
-                append(NM, [mil], FNM),
-                append(FNM, [], N)
+                (
+                    centenas_millares_especiales(X, Y, []),
+                    append(Z, Y, NM)
+                ->
+                    append(Z, X, FNM),
+                    append(FNM, [mil], N)
+                ;
+                    append(NM, [mil], FNM),
+                    append(FNM, [], N)
+                )
             )    
         )
     ;
@@ -195,8 +212,6 @@ dec(setenta,1,2)-->[7].
 dec(ochenta,1,2)-->[8].
 dec(noventa,1,2)-->[9].
 
-
-
 cen(ciento,1,3)-->[1].
 cen(doscientos,1,3)-->[2].
 cen(trescientos,1,3)-->[3].
@@ -206,3 +221,7 @@ cen(seiscientos,1,3)-->[6].
 cen(setecientos,1,3)-->[7].
 cen(ochocientos,1,3)-->[8].
 cen(novecientos,1,3)-->[9].
+
+centenas_millares_especiales([un]) --> [uno].
+centenas_millares_especiales([y, un]) --> [y, uno].
+centenas_millares_especiales([veintiun]) --> [veintiuno].
