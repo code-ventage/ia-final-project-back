@@ -17,3 +17,13 @@ class Service(ABC):
     @abstractmethod
     def index(username: str = None) -> list:
         pass
+    
+    @staticmethod
+    def resetResponse() -> None:
+        Service.response = {
+            'version': 0,
+            'response':
+                {
+                    'status': 200, 'message': '', 'data': None
+                }
+        }

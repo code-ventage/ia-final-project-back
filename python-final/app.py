@@ -32,3 +32,5 @@ except Exception as e:
     Service.response['response']['message'] = str(e)
     with open('response.json', 'w') as file:
         json.dump(Service.response, file, indent=4)
+finally:
+    Service.resetResponse()

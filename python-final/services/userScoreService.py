@@ -7,24 +7,27 @@ import json
 from repositories.userScoreRepository import UserScoreRepository
 from services.service import Service
 from datetime import datetime as dt
-
+from models.userScoreModel import userScoreModel
 class UserScoreService(Service):
     def store(username: str, score: int) -> None:
         try:
-            data = str(dt.now())
-            UserScoreRepository.store(username, score, data)
+            userscore = userScoreModel(username, score)
+            UserScoreRepository.store(userscore)
             Service.response['message'] = 'Se ha guardado correctamente la informacion'
-            Service.response['response']['data'] = [{'username': username, 'score': score, 'data': data}]
+            Service.response['response']['data'] = [userscore.toJson()]
         except Exception as e:
             Service.response['response']['status'] = 500
             Service.response['response']['message'] = str(e)
+            Service.response['response']['data'] = None
         finally:
             with open('response.json', 'w') as file:
                 json.dump(Service.response, file, indent=4)
+            Service.resetResponse()
                 
     def index(username: str = None) -> list:        
         try:
             response = UserScoreRepository.index()
+            response = [i.toJson() for i in response]
             response.sort(key=lambda x: (-int(x['score']), dt.strptime(x['data'], '%Y-%m-%d %H:%M:%S.%f')))
             if username is None:
                 Service.response['response']['data'] = response
@@ -35,9 +38,9 @@ class UserScoreService(Service):
             Service.response['response']['message'] = str(e)
         finally:
             with open('response.json', 'w') as file:
-                json.dump(Service.response, file, indent=4)            
+                json.dump(Service.response, file, indent=4)    
+            Service.resetResponse()        
         
 if __name__ == '__main__':
-    input()
-    # UserScoreService.store('laos', 5)
-    UserScoreService.index()
+    UserScoreService.store('laos', 55)
+    # UserScoreService.index()

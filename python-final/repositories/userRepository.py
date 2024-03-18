@@ -7,28 +7,43 @@ sys.path.append(dir_father)
 from repositories.repository import Repository
 from exceptions.duplicateUser import DuplicateUser
 import json
+from models.userModel import userModel
 class UserRepository(Repository):
-    def store(username: str, password: str) -> None:
+    def store(user: userModel) -> None:
         try:
             with open('users.json', 'r') as file:
-                users = json.load(file)
                 
-                user =  list(filter(lambda a: a['username'] == username, users))
-                if len(user) > 0:
+                users = UserRepository.index()
+                
+                if user in users:
                     raise DuplicateUser() 
         except FileNotFoundError as e:
             users = []
-    
-        users.append({'username': username, 'password': password})
+
+        users.append(user)
+        usersJson = []
+        
+        for i in users:
+            usersJson.append(i.toJson())
         
         with open('users.json', 'w') as file:
-            json.dump(users, file, indent=4)
+            json.dump(usersJson, file, indent=4)
+
     
     def index() -> tuple:
-        with open('users.json', 'r') as file:
-            return json.load(file)
+        users = []
+        try:
+            with open('users.json', 'r') as file:
+                for i in json.load(file):
+                    user = userModel()
+                    user.reverseJson(i)
+                    users.append(user)
+        except FileNotFoundError as e:
+            pass
+                        
+        return users
+                    
 if __name__ == '__main__':
-    # UserRepository.store('laos', '0205')
-    # UserRepository.store('kratos', '0205')
-
-    print(UserRepository.index())
+    UserRepository.store(userModel('kratos', 'sf'))
+    for i in UserRepository.index():
+        print(i.username)
