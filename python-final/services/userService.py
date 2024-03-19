@@ -9,8 +9,11 @@ from repositories.userRepository import UserRepository
 from services.service import Service
 from models.userModel import userModel
 class UserService(Service):
-    def store(username: str, password: str) -> None:
+    def store(data: list) -> None:
         try:
+            username = data['username']
+            password = data['password']
+            
             UserRepository.store(userModel(username, password))
             Service.response['response']['message'] = 'Se ha registrado el usuario correctamente'
         except DuplicateUser as de:
@@ -25,8 +28,12 @@ class UserService(Service):
                 
             Service.resetResponse()
                 
-    def index(username: str = None) -> list:  
+    def index(data: list = None) -> list:  
         try:
+            username = None
+            if len(data) > 0:
+                username = data['username']
+                
             response = UserRepository.index()
             
             if username is None:
