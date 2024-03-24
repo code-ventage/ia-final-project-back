@@ -1,15 +1,8 @@
 {
     "version": 0,
     "response": {
-        "status": 200,
-        "message": "",
-        "data": [
-            {
-                "data": "2024-03-18 21:00:43.215661",
-                "score": "1231235",
-                "username": "pepe2"
-            }
-        ]
-    },
-    "message": "Se ha guardado correctamente la informacion"
+        "status": 500,
+        "message": "object of type 'NoneType' has no len()",
+        "data": null
+    }
 }

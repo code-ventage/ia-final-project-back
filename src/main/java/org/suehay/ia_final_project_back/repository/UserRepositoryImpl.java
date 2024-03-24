@@ -18,6 +18,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
     final Utils utils;
+
     @Override
     public GenericResponse signUp(UserRequest userRequest) {
         writeRequest(getGenericRequest(userRequest, "store"));
@@ -71,7 +72,6 @@ public class UserRepositoryImpl implements UserRepository {
                 }} : null
         );
     }
-
 
 
     private static void writeRequest(GenericPythonRequest genericRequest) {
