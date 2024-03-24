@@ -1,1 +1,1 @@
-{"version":0,"method":"index","service":"UserService","data":null}
+{"version":0,"method":"login","service":"UserService","data":{"username": "laosxd", "password": "ok"}}

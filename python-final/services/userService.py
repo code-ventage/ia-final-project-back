@@ -48,10 +48,10 @@ class UserService(Service):
                 json.dump(Service.response, file, indent=4)
             Service.resetResponse()
                 
-    def login(username: str, password: str) -> list:  
+    def login(data: list) -> list:  
         try:
             response = UserRepository.index()
-            response = [i.toJson() for i in response if i.username == username and i.password == password]
+            response = [i.toJson() for i in response if i.username == data['username'] and i.password == data['password']]
             
             if len(response) > 0:
                 Service.response['response']['message'] = 'Se ha autentificado correctamente'

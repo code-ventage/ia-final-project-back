@@ -1,8 +1,13 @@
 {
     "version": 0,
     "response": {
-        "status": 500,
-        "message": "object of type 'NoneType' has no len()",
-        "data": null
+        "status": 200,
+        "message": "Se ha autentificado correctamente",
+        "data": [
+            {
+                "password": "ok",
+                "username": "laosxd"
+            }
+        ]
     }
 }
