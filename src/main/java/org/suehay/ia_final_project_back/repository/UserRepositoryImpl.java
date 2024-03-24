@@ -2,16 +2,20 @@ package org.suehay.ia_final_project_back.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.suehay.ia_final_project_back.model.pythonReponse.GenericResponse;
+import org.suehay.ia_final_project_back.model.pythonReponse.PythonResponse;
 import org.suehay.ia_final_project_back.model.pythonRequest.GenericPythonRequest;
 import org.suehay.ia_final_project_back.model.request.UserRequest;
+import org.suehay.ia_final_project_back.model.response.UserResponse;
 import org.suehay.ia_final_project_back.util.FileLocator;
 import org.suehay.ia_final_project_back.util.Utils;
 
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 @Repository
@@ -19,10 +23,22 @@ import java.util.Objects;
 public class UserRepositoryImpl implements UserRepository {
     final Utils utils;
 
+    private @Value("${application.debbug}") Boolean isDebbuging;
+
     @Override
     public GenericResponse signUp(UserRequest userRequest) {
         writeRequest(getGenericRequest(userRequest, "store"));
         makePythonConsult();
+        if (isDebbuging)
+            return GenericResponse.builder().response(
+                                          PythonResponse.builder()
+                                                        .status("200")
+                                                        .data(List.of(UserResponse.builder()
+                                                                                  .userName("Victor")
+                                                                                  .password("victor")
+                                                                                  .build()))
+                                                        .build())
+                                  .build();
 
         GenericResponse response;
         try {
@@ -37,7 +53,16 @@ public class UserRepositoryImpl implements UserRepository {
     public GenericResponse getAll() {
         writeRequest(getGenericRequest(null, "index"));
         makePythonConsult();
-
+        if (isDebbuging)
+            return GenericResponse.builder().response(
+                                                         PythonResponse.builder()
+                                                                       .status("200")
+                                                                       .data(List.of(UserResponse.builder()
+                                                                                                 .userName("Victor")
+                                                                                                 .password("victor")
+                                                                                                 .build()))
+                                                                       .build())
+                                         .build();
         GenericResponse response;
         try {
             response = new ObjectMapper().readValue(new File(FileLocator.getPath("response.json")), GenericResponse.class);
@@ -51,6 +76,16 @@ public class UserRepositoryImpl implements UserRepository {
     public GenericResponse login(UserRequest userRequest) {
         writeRequest(getGenericRequest(userRequest, "login"));
         makePythonConsult();
+        if (isDebbuging)
+            return GenericResponse.builder().response(
+                                          PythonResponse.builder()
+                                                        .status("200")
+                                                        .data(List.of(UserResponse.builder()
+                                                                                  .userName("Victor")
+                                                                                  .password("victor")
+                                                                                  .build()))
+                                                        .build())
+                                  .build();
 
         GenericResponse response;
         try {
