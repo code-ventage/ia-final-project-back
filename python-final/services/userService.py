@@ -31,7 +31,7 @@ class UserService(Service):
     def index(data: list = None) -> list:  
         try:
             username = None
-            if len(data) > 0:
+            if data is not None:
                 username = data['username']
                 
             response = UserRepository.index()
