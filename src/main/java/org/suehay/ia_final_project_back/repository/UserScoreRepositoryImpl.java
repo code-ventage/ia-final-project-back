@@ -49,7 +49,7 @@ public class UserScoreRepositoryImpl implements UserScoreRepository {
         return new GenericPythonRequest(
                 0,
                 method,
-                "userScoreService",
+                "UserScoreService",
                 !Objects.isNull(userScoreRequest) ? new HashMap<>() {{
                     put("username", userScoreRequest.getUserName());
                     put("score", userScoreRequest.getScore());

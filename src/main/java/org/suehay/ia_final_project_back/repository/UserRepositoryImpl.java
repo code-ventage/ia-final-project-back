@@ -64,7 +64,7 @@ public class UserRepositoryImpl implements UserRepository {
         return new GenericPythonRequest(
                 0,
                 method,
-                "userService",
+                "UserService",
                 !Objects.isNull(userRequest) ? new HashMap<>() {{
                     put("username", userRequest.getUserName());
                     put("password", userRequest.getPassword().hashCode() + "");
