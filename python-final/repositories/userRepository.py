@@ -9,7 +9,24 @@ from exceptions.duplicateUser import DuplicateUser
 import json
 from models.userModel import userModel
 class UserRepository(Repository):
+    """
+    Clase UserRepository que hereda de Repository.
+
+    Métodos:
+        store(user: userModel) -> None:
+            Almacena un usuario en el archivo 'users.json'.
+
+        index() -> tuple:
+            Obtiene una lista de usuarios del archivo 'users.json'.
+    """
     def store(user: userModel) -> None:
+        """
+        store(user: userModel) -> None:
+            Almacena un usuario en el archivo 'users.json'.
+
+        :param user: El usuario a almacenar.
+        :raises DuplicateUser: Si el usuario ya existe en el archivo.
+        """
         try:
             with open('users.json', 'r') as file:
                 
@@ -31,6 +48,12 @@ class UserRepository(Repository):
 
     
     def index() -> tuple:
+        """
+        index() -> tuple:
+            Obtiene una lista de usuarios del archivo 'users.json'.
+
+        :return: Una lista de usuarios.
+        """
         users = []
         try:
             with open('users.json', 'r') as file:

@@ -7,7 +7,23 @@ import json
 from repositories.repository import Repository
 from models.userScoreModel import userScoreModel
 class UserScoreRepository(Repository):
+    """
+        Clase UserScoreRepository que hereda de Repository.
+
+        Métodos:
+            store(userscore: userScoreModel) -> None:
+                Almacena una puntuación de usuario en el archivo 'scores.json'.
+
+            index() -> list:
+                Obtiene una lista de puntuaciones de usuarios del archivo 'scores.json'.
+    """
     def store(userscore: userScoreModel) -> None:
+        """
+            store(userscore: userScoreModel) -> None:
+                Almacena una puntuación de usuario en el archivo 'scores.json'.
+
+            :param userscore: La puntuación del usuario a almacenar.
+        """
         try:
             with open('scores.json', 'r') as file:
                 scores = UserScoreRepository.index()
@@ -24,6 +40,12 @@ class UserScoreRepository(Repository):
             json.dump(scoresJson, file, indent=4)
     
     def index() -> list:
+        """
+            index() -> list:
+                Obtiene una lista de puntuaciones de usuarios del archivo 'scores.json'.
+
+            :return: Una lista de puntuaciones de usuarios.
+        """
         scores = []
         try:
             with open('scores.json', 'r') as file:
