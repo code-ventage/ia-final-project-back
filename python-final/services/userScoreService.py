@@ -9,7 +9,23 @@ from services.service import Service
 from datetime import datetime as dt
 from models.userScoreModel import userScoreModel
 class UserScoreService(Service):
-    def store(data: dict) -> None:        
+    """
+    Clase UserScoreService que hereda de Service.
+
+    Métodos:
+        store(data: dict) -> None:
+            Almacena una puntuación de usuario.
+
+        index(data: dict = None) -> list:
+            Obtiene una lista de puntuaciones de usuarios.
+    """
+    def store(data: dict) -> None:
+        """
+        store(data: dict) -> None:
+            Almacena una puntuación de usuario.
+
+        :param data: Diccionario con la información del usuario y su puntuación.
+        """
         try:
             username = data['username']
             score = data['score']
@@ -27,7 +43,14 @@ class UserScoreService(Service):
                 json.dump(Service.response, file, indent=4)
             Service.resetResponse()
                 
-    def index(data: dict = None) -> list:                    
+    def index(data: dict = None) -> list:
+        """
+        index(data: dict = None) -> list:
+            Obtiene una lista de puntuaciones de usuarios.
+
+        :param data: Diccionario con la información del usuario opcional.
+        :return: Una lista de puntuaciones de usuarios.
+        """
         try:
             username = None
             if data is not None:
