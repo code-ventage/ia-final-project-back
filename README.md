@@ -227,7 +227,7 @@ The `response.json` file is created by the Python program and contains the respo
 
 The project is divided into two modules:
 
-- `Srping`: Contains the Spring Boot application.
+- `Spring`: Contains the Spring Boot application.
 
     Directory structure:
     - src
@@ -249,10 +249,10 @@ The project is divided into two modules:
     Directory structure:
     - `python_final`
       - `exceptions` - contains the custom exceptions
+      - `models` - contains the domain models
       - `repositories` - contains the repositories
       - `services` - contains the services
       - `app.py` - is the main file
-      - `response.json` - contains the response of the request
 
 ## Python project explanation
 
