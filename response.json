@@ -5,29 +5,11 @@
         "message": "",
         "data": [
             {
-                "password": "ad",
-                "username": "laos"
-            },
-            {
-                "password": "sf",
-                "username": "kratos"
-            },
-            {
-                "password": "5",
-                "username": "test"
-            },
-            {
-                "password": "5",
-                "username": "test2"
-            },
-            {
-                "password": "-816693433",
+                "data": "2024-03-24 11:31:00.736415",
+                "score": "13231132",
                 "username": "Victor"
-            },
-            {
-                "password": "ok",
-                "username": "laosxd"
             }
         ]
-    }
+    },
+    "message": "Se ha guardado correctamente la informacion"
 }

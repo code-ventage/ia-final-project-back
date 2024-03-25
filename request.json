@@ -1,1 +1,1 @@
-{"version":0,"method":"index","service":"UserService","data": null}
+{"version":0,"method":"store","service":"UserScoreService","data":{"score":"13231132","username":"Victor"}}

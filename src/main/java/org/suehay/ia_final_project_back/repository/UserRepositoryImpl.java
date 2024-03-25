@@ -23,13 +23,13 @@ import java.util.Objects;
 public class UserRepositoryImpl implements UserRepository {
     final Utils utils;
 
-    private @Value("${application.debbug}") Boolean isDebbuging;
+    private @Value("${application.debug}") Boolean isDebugging;
 
     @Override
     public GenericResponse signUp(UserRequest userRequest) {
         writeRequest(getGenericRequest(userRequest, "store"));
         makePythonConsult();
-        if (isDebbuging)
+        if (isDebugging)
             return GenericResponse.builder().response(
                                           PythonResponse.builder()
                                                         .status("200")
@@ -53,7 +53,7 @@ public class UserRepositoryImpl implements UserRepository {
     public GenericResponse getAll() {
         writeRequest(getGenericRequest(null, "index"));
         makePythonConsult();
-        if (isDebbuging)
+        if (isDebugging)
             return GenericResponse.builder().response(
                                                          PythonResponse.builder()
                                                                        .status("200")
@@ -76,7 +76,7 @@ public class UserRepositoryImpl implements UserRepository {
     public GenericResponse login(UserRequest userRequest) {
         writeRequest(getGenericRequest(userRequest, "login"));
         makePythonConsult();
-        if (isDebbuging)
+        if (isDebugging)
             return GenericResponse.builder().response(
                                           PythonResponse.builder()
                                                         .status("200")
