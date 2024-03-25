@@ -24,6 +24,7 @@
   * [Diagrams](#diagrams)
     * [Spring Boot - class diagram](#spring-boot---class-diagram)
     * [Python - exception class diagram](#python---exception-class-diagram)
+    * [Python - models class diagram](#python---models-class-diagram)
     * [Python - repositories class diagram](#python---repositories-class-diagram)
     * [Python - services class diagram](#python---services-class-diagram)
   * [Requirements](#requirements)
@@ -253,6 +254,14 @@ The project is divided into two modules:
       - `app.py` - is the main file
       - `response.json` - contains the response of the request
 
+## Python project explanation
+
+<!--TODO 3/24/24 palmerodev : eto hay que hacerlo-->
+
+## Prolog project explanation
+
+<!--TODO 3/24/24 palmerodev : eto hay que hacerlo-->
+
 ## Diagrams
 
 ### Spring Boot - class diagram
@@ -262,6 +271,10 @@ The project is divided into two modules:
 ### Python - exception class diagram
 
 ![Python - exceptions class diagram](assets/python-exceptions.png)
+
+### Python - models class diagram
+
+![Python - models class diagram](assets/python-models.png)
 
 ### Python - repositories class diagram
 
