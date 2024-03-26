@@ -17,4 +17,6 @@ public class UserScoreResponse {
     String userName;
     @JsonProperty("score")
     String score;
+    @JsonProperty("date")
+    String date;
 }
