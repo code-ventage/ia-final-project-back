@@ -28,7 +28,7 @@ class userModel(Model):
         :return: boolean
         """
         if type(__value) == userModel :
-            if __value.username.lower() == self.username.lower():
+            if __value.username == self.username:
                 return True
             
         return False
