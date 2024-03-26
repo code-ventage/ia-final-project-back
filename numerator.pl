@@ -50,7 +50,6 @@ numeral(N, LRec, RRec):-
 numeral_millones(N, LRec1, RRec):-
     delete_zero_left(LRec1, LRec),
     len(LRec, N1),
-    N1 < 10,
     (
         N1 > 6
     ->
