@@ -31,8 +31,9 @@ public class UserController {
     }
 
     @GetMapping("/score/index")
-    public ResponseEntity<GenericScoreResponse> delete() {
-        return ResponseEntity.ok(userService.index());
+    public ResponseEntity<GenericScoreResponse> index() {
+        var response = userService.index();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/score/store")
