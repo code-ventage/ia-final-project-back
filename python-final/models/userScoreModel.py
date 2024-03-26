@@ -15,7 +15,7 @@ class userScoreModel(Model):
         Atributos:
            _username (str): Nombre de usuario.
            _score (int): Puntuación del usuario.
-           _data (str): Fecha y hora de la puntuación.
+           _date (str): Fecha y hora de la puntuación.
 
         Métodos:
            __init__(self, username: str = None, score: int = None) -> None:
@@ -45,7 +45,7 @@ class userScoreModel(Model):
         super().__init__()
         self._username = username
         self._score = score
-        self._data = str(dt.now())
+        self._date = str(dt.now())
 
     @property
     def username(self) -> str:
