@@ -58,7 +58,7 @@ class UserScoreService(Service):
                 
             response = UserScoreRepository.index()
             response = [i.toJson() for i in response]
-            response.sort(key=lambda x: (-int(x['score']), dt.strptime(x['data'], '%Y-%m-%d %H:%M:%S.%f')))
+            response.sort(key=lambda x: (-int(x['score']), dt.strptime(x['date'], '%Y-%m-%d %H:%M:%S.%f')))
             if username is None:
                 Service.response['response']['data'] = response
             else:
