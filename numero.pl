@@ -5,7 +5,22 @@ numero(N, Atom):-
 numero(N, OpenList, FinalHole):-
     (
         append(OpenList1, ['millones' | Hole], OpenList)
-    ->  millones(N, OpenList1, Hole, FinalHole)
+    ->
+        (
+            append(X, [un], OpenList1)
+        ->
+            append(X, [uno], XF),
+            millones(N, XF, Hole, FinalHole)
+        ;
+            (
+                append(_, [uno], OpenList1)
+            ->
+                false
+            ;
+                millones(N, OpenList1, Hole, FinalHole)
+            )
+            
+        )  
     ;
         (
             append(OpenList2, [un , millon | Hole], OpenList)
