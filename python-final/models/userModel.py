@@ -73,7 +73,7 @@ class userModel(Model):
         self._password = password
 
 if '__main__' == __name__:
-    j = userModel('laos', '0205')
+    j = userModel('laos', '5')
     print(j.toJson())
     i = userModel()
     i.reverseJson(j)
