@@ -20,10 +20,7 @@ public class ConsultServiceImpl implements ConsultService {
     }
 
     public HashMap<String, String> makeDigitConsultToProlog(String nums) {
-        var solution = proccessResponse(consultRepository.makeDigitConsultToProlog(nums));
-        if (solution == null) return null;
-
-        return solution;
+        return proccessResponse(consultRepository.makeDigitConsultToProlog(nums));
     }
 
     private static HashMap<String, String> proccessResponse(String prologResponse) {

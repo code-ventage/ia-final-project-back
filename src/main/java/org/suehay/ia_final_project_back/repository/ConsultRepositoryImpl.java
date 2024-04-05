@@ -32,7 +32,7 @@ public class ConsultRepositoryImpl implements ConsultRepository {
                     + nums
                     + digitQuerySuffix + " \""
                     + FileLocator.getPath("numero.pl") + "\"";
-        } catch (URISyntaxException | IOException e) {
+        } catch (URISyntaxException | IOException ignored) {
         }
 
         return getMakeGenericConsult(command);
@@ -68,7 +68,7 @@ public class ConsultRepositoryImpl implements ConsultRepository {
                     + letters
                     + letterQuerySuffix + " \""
                     + FileLocator.getPath("numerator.pl") + "\"";
-        } catch (URISyntaxException | IOException e) {
+        } catch (URISyntaxException | IOException ignored) {
         }
 
         return getMakeGenericConsult(command);

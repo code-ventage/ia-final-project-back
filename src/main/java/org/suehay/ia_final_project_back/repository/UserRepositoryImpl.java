@@ -28,6 +28,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public GenericResponse signUp(UserRequest userRequest) {
         writeRequest(getGenericRequest(userRequest, "store"));
+        return getGenericResponse();
+    }
+
+    private GenericResponse getGenericResponse() {
         makePythonConsult();
         if (isDebugging)
             return GenericResponse.builder().response(
@@ -52,48 +56,13 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public GenericResponse getAll() {
         writeRequest(getGenericRequest(null, "index"));
-        makePythonConsult();
-        if (isDebugging)
-            return GenericResponse.builder().response(
-                                                         PythonResponse.builder()
-                                                                       .status("200")
-                                                                       .data(List.of(UserResponse.builder()
-                                                                                                 .userName("Victor")
-                                                                                                 .password("victor")
-                                                                                                 .build()))
-                                                                       .build())
-                                         .build();
-        GenericResponse response;
-        try {
-            response = new ObjectMapper().readValue(new File(FileLocator.getPath("response.json")), GenericResponse.class);
-        } catch (URISyntaxException | IOException e) {
-            throw new RuntimeException(e);
-        }
-        return response;
+        return getGenericResponse();
     }
 
     @Override
     public GenericResponse login(UserRequest userRequest) {
         writeRequest(getGenericRequest(userRequest, "login"));
-        makePythonConsult();
-        if (isDebugging)
-            return GenericResponse.builder().response(
-                                          PythonResponse.builder()
-                                                        .status("200")
-                                                        .data(List.of(UserResponse.builder()
-                                                                                  .userName("Victor")
-                                                                                  .password("victor")
-                                                                                  .build()))
-                                                        .build())
-                                  .build();
-
-        GenericResponse response;
-        try {
-            response = new ObjectMapper().readValue(new File(FileLocator.getPath("response.json")), GenericResponse.class);
-        } catch (URISyntaxException | IOException e) {
-            throw new RuntimeException(e);
-        }
-        return response;
+        return getGenericResponse();
     }
 
     private static GenericPythonRequest getGenericRequest(UserRequest userRequest, String method) {
@@ -123,7 +92,7 @@ public class UserRepositoryImpl implements UserRepository {
         String command = null;
         try {
             command = "python3 " + "\"" + FileLocator.getPath("python-final" + File.separator + "app.py") + "\"";
-        } catch (URISyntaxException | IOException e) {
+        } catch (URISyntaxException | IOException ignored) {
         }
 
         makeGenericConsult(command);

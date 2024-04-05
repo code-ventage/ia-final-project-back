@@ -73,7 +73,7 @@ public class UserScoreRepositoryImpl implements UserScoreRepository {
         String command = null;
         try {
             command = "python3 " + "\"" + FileLocator.getPath("python-final" + File.separator + "app.py") + "\"";
-        } catch (URISyntaxException | IOException e) {
+        } catch (URISyntaxException | IOException ignored) {
         }
 
         makeGenericConsult(command);
