@@ -1,98 +1,88 @@
-numero(N, Atom):-
-    atomic_list_concat(List, ' ', Atom),
-    numero(N, List, []), !.
-
-numero(N, OpenList, FinalHole):-
+numero_millones(N, OpenList, FinalHole):-
     (
-        append(OpenList1, ['millones' | Hole], OpenList)
+        append(MillarMillones, [millones | Millares], OpenList)
     ->
-        (
-            append(X, [un], OpenList1)
-        ->
-            append(X, [uno], XF),
-            millones(N, XF, Hole, FinalHole)
-        ;
-            (
-                append(_, [uno], OpenList1)
-            ->
-                false
-            ;
-                millones(N, OpenList1, Hole, FinalHole)
-            )
-            
-        )  
+        millones(N, MillarMillones, Millares, FinalHole)
     ;
         (
-            append(OpenList2, [un , millon | Hole], OpenList)
-        ->  millon_especial(N, OpenList2, Hole, FinalHole)
+            append([un, millon], Millares, OpenList)
+        ->
+            Millares \= [],
+            numero_millares(N1, Millares, FinalHole),
+            N is 1000000 + N1
         ;
-            numero_millares(N, OpenList, FinalHole)
-        )
-    ).
+            Millares = [],
+            N is 1000000
+        ) 
+    ), !.
 
-millon_especial(N, OpenList, Hole, FinalHole):-
-    OpenList = [],
-    Hole = FinalHole,
-    N is 1000000.
-
-millon_especial(N, OpenList, Hole, FinalHole):-
-    OpenList = [],
-    numero_millares(N1, Hole, FinalHole),
-    N is 1000000 + N1.
-
-millones(N, OpenList, Hole, FinalHole):-
-    numero_millares(N1, OpenList, FinalHole),
-    numero_millares(N2, Hole, FinalHole),
+millones(N, MillarMillones, Millares, FinalHole):-
+    MillarMillones \= [],
+    Millares \= [],
+    numero_millares(N1, MillarMillones, FinalHole),
+    numero_millares(N2, Millares, FinalHole),
     N is N1 * 1000000 + N2.
 
-millones(N, OpenList, Hole, FinalHole):-
-    Hole = [],
-    numero_millares(N1, OpenList, FinalHole),
+millones(N, MillarMillones, Millares, FinalHole):-
+    MillarMillones = [],
+    Millares \= [],
+    numero_millares(N2, Millares, FinalHole),
+    N is 1000000 + N2.
+
+millones(N, MillarMillones, Millares, FinalHole):-
+    MillarMillones \= [],
+    Millares = [],
+    numero_millares(N1, Millares, FinalHole),
     N is N1 * 1000000.
 
 numero_millares(N, OpenList, FinalHole):-
     (
-        append(OpenList1, [mil | Hole], OpenList)
-    ->  
+        append(CentenasMillares, [mil | Centenas], OpenList)
+    ->
         (
-            centenas_millares_especiales(Y, X, []),
-            append(OpenList2, X, OpenList1)
+            centenas_millares_especiales(X, Y, []),
+            append(CentenasMillaresL, Y, CentenasMillares)
         ->
-            append(OpenList2, Y, OpenList3),
-            millares(N, OpenList3, Hole, FinalHole)
-        ;   
-            (   
-                centenas_millares_especiales(Z, _, []),
-                append(_, Z, OpenList1)
+            append(CentenasMillaresL, X, CentenasMillaresR),
+            millares(N, CentenasMillaresR, Centenas, FinalHole)
+        ;
+            (
+                centenas_millares_especiales(X, _, []),
+                append(_, X, CentenasMillares)
             ->
                 false
             ;
-                millares(N, OpenList1, Hole, FinalHole)
+                millares(N, CentenasMillares, Centenas, FinalHole)
             )
         )
     ;
         numero_centenas(N, OpenList, FinalHole)
-    ).
-    
-millares(N, OpenList, Hole, FinalHole):-
-    numero_centenas(N1, OpenList, FinalHole),
-    numero_centenas(N2, Hole, FinalHole),
+    ), !.
+
+millares(N, CentenasMillares, Centenas, FinalHole):-
+    CentenasMillares \= [],
+    Centenas \= [],
+    numero_centenas(N1, CentenasMillares, FinalHole),
+    numero_centenas(N2, Centenas, FinalHole),
     N is N1 * 1000 + N2.
 
-millares(N, OpenList, Hole, FinalHole):-
-    OpenList = [],
-    numero_centenas(N2, Hole, FinalHole),
-    N is 1000 + N2.
-
-millares(N, OpenList, Hole, FinalHole):-
-    Hole = [],
-    numero_centenas(N1, OpenList, FinalHole),
+millares(N, CentenasMillares, Centenas, FinalHole):-
+    CentenasMillares \= [], 
+    Centenas = [],
+    numero_centenas(N1, CentenasMillares, FinalHole),
     N is N1 * 1000.
 
-millares(N, OpenList, Hole, FinalHole):-
-    OpenList = [],
-    Hole = FinalHole,
+millares(N, CentenasMillares, Centenas, FinalHole):-
+    CentenasMillares = [],
+    Centenas \= [],
+    numero_centenas(N2, Centenas, FinalHole),
+    N is 1000 + N2.
+
+millares(N, CentenasMillares, Centenas, FinalHole):-
+    CentenasMillares = FinalHole,
+    Centenas = FinalHole,
     N is 1000.
+
 
 numero_centenas(N)--> centenas(N),!.
 numero_centenas(N)--> decenas(N),!.
@@ -136,6 +126,7 @@ digito(6) --> [seis].
 digito(7) --> [siete].
 digito(8) --> [ocho].     
 digito(9) --> [nueve]. 
+
 teen(10) --> [diez].
 teen(11) --> [once].
 teen(12) --> [doce].
