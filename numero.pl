@@ -7,13 +7,15 @@ numero(N, OpenList, FinalHole):-
         append(OpenList1, ['millones' | Hole], OpenList)
     ->
         (
-            append(X, [un], OpenList1)
+            centenas_millares_especiales(LF, RY, []),
+            append(X, RY, OpenList1)
         ->
-            append(X, [uno], XF),
+            append(X, LF, XF),
             millones(N, XF, Hole, FinalHole)
         ;
             (
-                append(_, [uno], OpenList1)
+                centenas_millares_especiales(LX, _, []),
+                append(_, LX, OpenList1)
             ->
                 false
             ;

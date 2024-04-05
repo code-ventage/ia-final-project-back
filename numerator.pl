@@ -69,9 +69,10 @@ numeral_millones(N, LRec1, RRec):-
                 reverse(R, RR),
                 numeral_millares(NM, RR, []),
                 (
-                    append(X, [uno], NM)
+                    centenas_millares_especiales(LY, RY, []),
+                    append(X, RY, NM)
                 ->
-                    append(X, [un], NMF),
+                    append(X, LY, NMF),
                     append(NMF, [millones], FNM)
                 ;   
                     append(NM, [millones], FNM)
@@ -89,9 +90,10 @@ numeral_millones(N, LRec1, RRec):-
                 reverse(R, RR),
                 numeral_millares(NM, RR, []),
                 (
-                    append(X, [uno], NM)
+                    centenas_millares_especiales(LF, RY, []),
+                    append(X, RY, NM)
                 ->
-                    append(X, [un], NMF),
+                    append(X, LF, NMF),
                     append(NMF, [millones], FNM)
                 ;   
                     append(NM, [millones], FNM)
