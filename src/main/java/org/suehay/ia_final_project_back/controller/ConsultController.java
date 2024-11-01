@@ -1,16 +1,18 @@
 package org.suehay.ia_final_project_back.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.suehay.ia_final_project_back.model.request.ConsultRequest;
 import org.suehay.ia_final_project_back.model.response.ConsultResponse;
 import org.suehay.ia_final_project_back.service.ConsultService;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @RestController
 @RequiredArgsConstructor
@@ -57,6 +59,33 @@ public class ConsultController {
         }
 
         return ResponseEntity.ok(response.toString());
+    }
+
+    @PostMapping()
+    public ResponseEntity<Boolean> setMultipart(@RequestBody MultipartFile file) {
+        throw new RuntimeException("Not implemented");
+    }
+
+    private static final String UPLOAD_DIR = "uploads/";
+
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty");
+        }
+
+        try {
+            // Define la ruta donde se guardará el archivo
+            Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
+            Files.createDirectories(path.getParent());
+            Files.write(path, file.getBytes());
+
+            return ResponseEntity.ok("File uploaded successfully: " + file.getOriginalFilename());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed");
+        }
     }
 
 }
